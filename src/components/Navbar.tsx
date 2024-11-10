@@ -10,7 +10,7 @@ export default function Navbar({ onRefresh }: NavbarProps) {
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
     navigate("/login");
-    toast("bye 👋");
+    toast("bye bye 👋");
   };
 
   const isConvertPage = location.pathname === "/convert";
