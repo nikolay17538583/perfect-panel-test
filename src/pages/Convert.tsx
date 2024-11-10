@@ -53,7 +53,7 @@ export default function Convert() {
     setToCurrency(e.target.value);
   };
 
-  const availableCurrencies = rates.map((rate) => rate.symbol);
+  const availableCurrencies = rates.map((rate) => rate.symbol).sort();
 
   return (
     <>
@@ -111,12 +111,12 @@ export default function Convert() {
           <p>Loading...</p>
         ) : (
           conversionResult && (
-            <div className="mt-4 p-6 bg-gray-100 rounded text-center">
-              <h3 className="text-2xl font-semibold mb-4">
+            <div className="mt-4 p-4 bg-gray-100 rounded text-center">
+              <h3 className="text-2xl font-semibold mb-2">
                 {amount} {fromCurrency}
               </h3>
               <GoArrowSwitch size={16} className="mx-auto" />
-              <h4 className="text-2xl font-bold text-ppblue mt-4">
+              <h4 className="text-2xl font-bold text-ppblue mt-2">
                 {conversionResult.mainAmount}
               </h4>
               <p className="text-gray-500">{conversionResult.feeAmount}</p>
