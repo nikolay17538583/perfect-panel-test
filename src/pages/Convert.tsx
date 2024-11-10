@@ -24,13 +24,14 @@ export default function Convert() {
         const conversionRate =
           parseFloat(fromRate.rateUsd) / parseFloat(toRate.rateUsd);
         const result = amount * conversionRate;
-        const resultWithFee = result * (1 + CONVERSION_FEE_PERCENT / 100);
+        const resultRounded = Math.floor(result * 100) / 100;
+        const resultWithFeeRounded =
+          Math.floor(resultRounded * (1 + CONVERSION_FEE_PERCENT / 100) * 100) /
+          100;
 
         setConversionResult({
-          mainAmount: `${resultWithFee.toFixed(2)} ${toCurrency}`,
-          feeAmount: `(${result.toFixed(
-            2
-          )} ${toCurrency} + ${CONVERSION_FEE_PERCENT}%)`,
+          mainAmount: `${resultWithFeeRounded} ${toCurrency}`,
+          feeAmount: `(${resultRounded} ${toCurrency} + ${CONVERSION_FEE_PERCENT}%)`,
         });
       }
     }
