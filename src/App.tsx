@@ -9,6 +9,7 @@ import Rates from "./pages/Rates";
 import Convert from "./pages/Convert";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import MainLayout from "./components/MainLayout";
 
 const router = createBrowserRouter([
   {
@@ -20,20 +21,25 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/rates",
-    element: (
-      <PrivateRoute>
-        <Rates />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/convert",
-    element: (
-      <PrivateRoute>
-        <Convert />
-      </PrivateRoute>
-    ),
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/rates",
+        element: (
+          <PrivateRoute>
+            <Rates />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/convert",
+        element: (
+          <PrivateRoute>
+            <Convert />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
   {
     path: "*",
@@ -45,7 +51,7 @@ export default function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 }
