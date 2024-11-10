@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const usernameEnv = import.meta.env.VITE_DEMO_USERNAME;
@@ -14,9 +15,10 @@ export default function Login() {
     e.preventDefault();
     if (username === usernameEnv && password === passwordEnv) {
       localStorage.setItem("isAuthenticated", "true");
+      toast.success("Login successful!");
       navigate("/rates");
     } else {
-      alert("Invalid credentials!");
+      toast.error("Invalid credentials!");
     }
   };
 
@@ -30,21 +32,21 @@ export default function Login() {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-ppblue"
+            className="w-full px-4 py-2 border rounded focus:outline-none"
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-8">
           <label className="block mb-2 font-medium">Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-ppblue"
+            className="w-full px-4 py-2 border rounded focus:outline-none"
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-ppblue text-white py-3 rounded focus:outline-sky-700 font-medium"
+          className="w-full bg-ppblue text-white py-3 rounded outline-none focus:scale-105 transition-transform duration-200 font-semibold"
         >
           Sign in
         </button>
