@@ -58,72 +58,74 @@ export default function Convert() {
   return (
     <>
       <Navbar onRefresh={() => {}} />
-      <div className="w-full md:w-96 mx-auto">
-        <div className="mb-4">
-          <label className="font-medium">From</label>
-          <select
-            value={fromCurrency}
-            onChange={handleFromCurrencyChange}
-            className="border rounded p-2 w-full outline-none cursor-pointer mt-2"
-          >
-            {availableCurrencies.map((currency) => (
-              <option
-                key={currency}
-                value={currency}
-                disabled={currency === toCurrency}
-              >
-                {currency}
-              </option>
-            ))}
-          </select>
+      {loading ? (
+        <div className="flex justify-center items-center min-h-dvh -mt-44">
+          <span className="loader"></span>
         </div>
+      ) : (
+        <div className="w-full md:w-96 mx-auto md:mt-10">
+          <div className="mb-4">
+            <label className="font-medium">From</label>
+            <select
+              value={fromCurrency}
+              onChange={handleFromCurrencyChange}
+              className="border rounded p-2 w-full outline-none cursor-pointer mt-2"
+            >
+              {availableCurrencies.map((currency) => (
+                <option
+                  key={currency}
+                  value={currency}
+                  disabled={currency === toCurrency}
+                >
+                  {currency}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="pb-6 border-b border-neutral-200">
-          <label className="font-medium">To</label>
-          <select
-            value={toCurrency}
-            onChange={handleToCurrencyChange}
-            className="border rounded p-2 w-full outline-none cursor-pointer mt-2"
-          >
-            {availableCurrencies.map((currency) => (
-              <option
-                key={currency}
-                value={currency}
-                disabled={currency === fromCurrency}
-              >
-                {currency}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="pb-6 border-b border-neutral-200">
+            <label className="font-medium">To</label>
+            <select
+              value={toCurrency}
+              onChange={handleToCurrencyChange}
+              className="border rounded p-2 w-full outline-none cursor-pointer mt-2"
+            >
+              {availableCurrencies.map((currency) => (
+                <option
+                  key={currency}
+                  value={currency}
+                  disabled={currency === fromCurrency}
+                >
+                  {currency}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="mb-4 pt-4">
-          <label className="font-medium">Amount</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={handleAmountChange}
-            className="border rounded p-2 w-full mt-2"
-          />
-        </div>
+          <div className="mb-4 pt-4">
+            <label className="font-medium">Amount</label>
+            <input
+              type="number"
+              value={amount}
+              onChange={handleAmountChange}
+              className="border rounded p-2 w-full mt-2"
+            />
+          </div>
 
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          conversionResult && (
+          {conversionResult && (
             <div className="mt-4 p-4 bg-gray-100 rounded text-center">
-              <h3 className="text-2xl font-semibold mb-2">
+              <h3 className="text-lg font-semibold mb-2">
                 {amount} {fromCurrency}
               </h3>
               <GoArrowSwitch size={16} className="mx-auto" />
-              <h4 className="text-2xl font-bold text-ppblue mt-2">
+              <h4 className="text-2xl font-bold text-blue-600 mt-2">
                 {conversionResult.mainAmount}
               </h4>
               <p className="text-gray-500">{conversionResult.feeAmount}</p>
             </div>
-          )
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </>
   );
 }

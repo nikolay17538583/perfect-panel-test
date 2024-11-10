@@ -47,7 +47,7 @@ export default function Rates() {
   return (
     <>
       <Navbar onRefresh={fetchRates} />
-      <div className="flex items-center gap-10">
+      <div className="flex items-center gap-10 mt-2 mb-8">
         <div className="flex items-center gap-2">
           <label htmlFor="pageSize">Show:</label>
           <select
@@ -68,7 +68,7 @@ export default function Rates() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center min-h-dvh -mt-52">
+        <div className="flex justify-center items-center min-h-dvh -mt-60">
           <span className="loader"></span>
         </div>
       ) : (
