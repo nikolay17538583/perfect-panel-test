@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Rate, UseFetchRatesProps, UseFetchRatesReturn } from "../types";
 import toast from "react-hot-toast";
 
@@ -15,13 +15,13 @@ export default function useFetchRates({
   const fetchRates = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<{ data: Rate[] }>(
+      const response: AxiosResponse<{ data: Rate[] }> = await axios.get(
         "https://api.coincap.io/v2/rates"
       );
       const fetchedRates = response.data.data;
 
       if (sortOrder) {
-        fetchedRates.sort((a, b) =>
+        fetchedRates.sort((a: Rate, b: Rate) =>
           sortOrder === "asc"
             ? parseFloat(a.rateUsd) - parseFloat(b.rateUsd)
             : parseFloat(b.rateUsd) - parseFloat(a.rateUsd)
@@ -29,7 +29,7 @@ export default function useFetchRates({
       }
 
       const newHighlightedRates: { [id: string]: "up" | "down" } = {};
-      fetchedRates.forEach((rate) => {
+      fetchedRates.forEach((rate: Rate) => {
         const prevRate = rates.find((r) => r.id === rate.id);
         if (prevRate) {
           const change =
@@ -53,6 +53,12 @@ export default function useFetchRates({
 
   useEffect(() => {
     fetchRates();
+
+    const interval = setInterval(() => {
+      fetchRates();
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, [sortOrder]);
 
   return { rates, loading, highlightedRates, fetchRates };
