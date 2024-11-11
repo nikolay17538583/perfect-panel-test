@@ -28,3 +28,10 @@ export interface PaginationProps {
   totalPages: number;
   onPageChange: (newPage: number) => void;
 }
+
+export interface AuthContextProps {
+  isAuthenticated: boolean;
+  loading: boolean;
+  login: () => void;
+  logout: () => void;
+}

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/authContext";
 
 const usernameEnv = import.meta.env.VITE_DEMO_USERNAME;
 const passwordEnv = import.meta.env.VITE_DEMO_PASSWORD;
@@ -10,11 +11,12 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
 
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username === usernameEnv && password === passwordEnv) {
-      localStorage.setItem("isAuthenticated", "true");
+      login();
       toast.success("Login successful!");
       navigate("/rates");
     } else {

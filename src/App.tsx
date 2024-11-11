@@ -10,6 +10,7 @@ import Convert from "./pages/Convert";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import MainLayout from "./components/MainLayout";
+import AuthProvider from "./components/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -54,9 +55,9 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <>
+    <AuthProvider>
       <RouterProvider router={router} />
       <Toaster position="top-right" reverseOrder={false} />
-    </>
+    </AuthProvider>
   );
 }

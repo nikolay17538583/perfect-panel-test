@@ -1,14 +1,18 @@
+// Navbar.tsx
 import { useNavigate, useLocation } from "react-router-dom";
 import { FiRefreshCw, FiLogOut } from "react-icons/fi";
 import { NavbarProps } from "../types";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import AuthContext from "../contexts/authContext";
 
 export default function Navbar({ onRefresh }: NavbarProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
+    logout();
     navigate("/login");
     toast("bye bye 👋");
   };
