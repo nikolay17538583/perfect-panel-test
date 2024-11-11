@@ -24,6 +24,10 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
+        path: "/",
+        element: <Navigate to="/rates" replace />,
+      },
+      {
         path: "/rates",
         element: (
           <PrivateRoute>
@@ -39,11 +43,11 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "*",
+        element: <Navigate to="/rates" replace />,
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <Navigate to="/login" />,
   },
 ]);
 
